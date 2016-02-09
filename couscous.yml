@@ -1,0 +1,33 @@
+template:
+    url: https://github.com/skimia/Template-Dark
+
+exclude:
+    - src
+    - tests
+    - vendor
+    - gh-pages
+
+baseUrl: http://skimia.github.io/assets
+
+github:
+    user: skimia
+    repo: assets
+
+title: Skimia Assets
+subTitle: The awesome new Package
+
+
+menu:
+    sections:
+        introduction:
+            name: Introduction
+            items:
+                getting-started:
+                    text: Getting started
+                    relativeUrl: docs/getting-started.html
+                api:
+                    text: API
+                    relativeUrl: api
+        other:
+            name: Other topics
+            items:

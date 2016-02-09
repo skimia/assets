@@ -1,0 +1,28 @@
+source:
+    - ./src
+
+destination: ./gh-pages/api
+
+title: Stump Assets
+
+templateTheme: bootstrap
+
+
+# Generate documentation for PHP internal classes
+php: Yes
+# Generate tree view of classes, interfaces and exceptions
+tree: Yes
+# Generate documentation for deprecated classes, methods, properties and constants
+deprecated: No
+# Generate documentation of tasks
+todo: Yes
+# Generate highlighted source code files
+sourceCode: Yes
+# Add a link to download documentation as a ZIP archive
+download: Yes
+# Save a checkstyle report of poorly documented elements into a file
+# report:
+
+
+# Don't display scanning and generating messages
+quiet: No
