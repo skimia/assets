@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ScannerServiceProvider extends ServiceProvider
 {
-
     /**
      * Determines if we will auto-scan in the local environment.
      *
@@ -27,7 +26,8 @@ class ScannerServiceProvider extends ServiceProvider
         $this->loadScanned();
     }
 
-    protected function getDirectories(){
+    protected function getDirectories()
+    {
         return $this->app['config']->get('assets.directories', []);
     }
 
@@ -42,8 +42,6 @@ class ScannerServiceProvider extends ServiceProvider
         if (empty($directories)) {
             return;
         }
-
-
 
         //dd($directories);
         $scanner = $this->getScanner();
@@ -87,7 +85,4 @@ class ScannerServiceProvider extends ServiceProvider
     {
         return $this->app->make('skimia.assets.scanner');
     }
-
-
-
 }
