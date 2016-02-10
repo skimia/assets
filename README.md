@@ -5,7 +5,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/skimia/assets.svg?style=flat-square)](https://packagist.org/packages/skimia/assets)
 [![Total Downloads](https://img.shields.io/packagist/dt/skimia/assets.svg?style=flat-square)](https://packagist.org/packages/skimia/assets)
 [![License](https://img.shields.io/packagist/l/skimia/assets.svg?style=flat-square)](https://packagist.org/packages/skimia/assets)
-[![StyleCI](https://styleci.io/repos/45420482/shield)](https://styleci.io/repos/45420482)
+[![StyleCI](https://styleci.io/repos/51383045/shield)](https://styleci.io/repos/51383045)
 
 ## Documentation
 
