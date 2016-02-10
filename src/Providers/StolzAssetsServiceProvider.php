@@ -1,4 +1,7 @@
-<?php namespace Skimia\Assets\Providers;
+<?php
+
+namespace Skimia\Assets\Providers;
+
 use Skimia\Assets\Console\Commands\FlushPipelineCommand;
 use Skimia\Assets\Manager as Assets;
 use Illuminate\Foundation\AliasLoader;
@@ -18,6 +21,7 @@ class StolzAssetsServiceProvider extends StolzProvider
         // Register the Artisan command
         $this->commands('stolz.assets.command.flush');
     }
+
     /**
      * Register bindings in the container.
      *
@@ -34,12 +38,15 @@ class StolzAssetsServiceProvider extends StolzProvider
         $config = $this->app['config']->get('assets.groups', []);
         // Register the library instances bindings ...
         // No groups defined. Assume the config is for the default group.
-        if( ! isset($config['default']))
+        if (! isset($config['default'])) {
             return $this->registerAssetsManagerInstance('default', $config);
+        }
         // Multiple groups
-        foreach($config as $groupName => $groupConfig)
+        foreach ($config as $groupName => $groupConfig) {
             $this->registerAssetsManagerInstance($groupName, (array) $groupConfig);
+        }
     }
+
     /**
      * Register an instance of the assets manager library in the IoC container.
      *
@@ -51,11 +58,11 @@ class StolzAssetsServiceProvider extends StolzProvider
     protected function registerAssetsManagerInstance($name, array $config)
     {
         $this->app->singleton("stolz.assets.group.$name", function ($app) use ($config) {
-            if( ! isset($config['public_dir']))
+            if (! isset($config['public_dir'])) {
                 $config['public_dir'] = public_path();
+            }
 
-
-            $config['collections_dir'] = $this->app['config']->get('assets.collections_dir','collections');
+            $config['collections_dir'] = $this->app['config']->get('assets.collections_dir', 'collections');
 
             return new Assets($config);
         });

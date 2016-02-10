@@ -4,13 +4,13 @@ namespace Skimia\Assets\Events;
 
 use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class BeforeMergeCollectionFiles extends Event
 {
     use SerializesModels;
 
     protected $files = [];
+
     /**
      * Create a new event instance.
      *
@@ -22,9 +22,11 @@ class BeforeMergeCollectionFiles extends Event
         //$this->files[] = 'google';
     }
 
-    public function &getCollection(){
+    public function &getCollection()
+    {
         return $this->files;
     }
+
     /**
      * Get the channels the event should be broadcast on.
      *
