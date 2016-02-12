@@ -12,6 +12,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Skimia\Assets\Events\BeforeMergeCollectionFiles;
 use Symfony\Component\Finder\Finder;
 use File;
+use Cache;
 
 class Scanner
 {
@@ -26,6 +27,16 @@ class Scanner
      * @var array
      */
     protected $directories;
+
+    /**
+     * @var array
+     */
+    protected $builded_collections = [];
+
+    /**
+     * @var array
+     */
+    protected $last_builded_collections = [];
 
     /**
      * @var array
@@ -95,12 +106,12 @@ class Scanner
 
             $finder = Finder::create()->files()->ignoreDotFiles(false)->in($path);
 
+            $max_depth = $this->app['config']->get('assets.max_depth',3);
             if(isset($this->directories_options[$path]['max_depth']))
-                $finder->depth($this->directories_options[$path]['max_depth']);
-            else
-                $finder->depth($this->app['config']->get('assets.max_depth',3));
+                $max_depth = $this->directories_options[$path]['max_depth'];
 
-            $files = $finder->name('.assets.json');
+            $files = $finder->depth('<= ' . $max_depth)->name('.assets.json');
+
             foreach ($files as $file) {
                 $content = $this->filterFile(json_decode($file->getContents(),true));
                 $content['__dir'] = dirname($file->getRealpath());
@@ -138,6 +149,7 @@ class Scanner
             $output .= $this->buildCollection($name,$assets);
         }
 
+        $this->saveBuildedCollections();
 
         $output .='}'.PHP_EOL;
         $output .= $this->makeGroups();
@@ -258,6 +270,8 @@ class Scanner
         $unresolved[] = $node;
         if(isset($node['require']))
         foreach ($node['require'] as $required) {
+            if(!isset($list[$required]))
+                throw new \Exception('Unknown or not accessible dep: '.$required.' for '.$node['name']);
             if(!in_array($list[$required],$resolved)){
 
                 if(in_array($list[$required],$unresolved))
@@ -275,8 +289,23 @@ class Scanner
 
     protected function buildCollection($name, $files)
     {
+
+        $this->builded_collections[] = $name;
         return sprintf('	Assets::group($container)->registerCollection(\'%s\', %s);'.PHP_EOL,
             $name,
             var_export($files, true));
+    }
+
+    protected function saveBuildedCollections(){
+        $this->last_builded_collections = Cache::get('skimia.assets.collections.builded',[]);
+        Cache::forever('skimia.assets.collections.builded',$this->builded_collections);
+    }
+
+    public function getNewlyBuildedCollections(){
+        return array_diff($this->builded_collections,$this->last_builded_collections);
+    }
+
+    public function getRemovedBuildedCollections(){
+        return array_diff($this->last_builded_collections,$this->builded_collections);
     }
 }
