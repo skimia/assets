@@ -12,41 +12,41 @@ return[
     |
     |
     */
-    'groups' => [
+    'groups'=>[
 
         // Configuration for the default group. Feel free to add more groups.
         // Each group can have different settings.
         'default' => [
 
-            /*
+            /**
              * Regex to match against a filename/url to determine if it is an asset.
              *
              * @var string
              */
             //'asset_regex' => '/.\.(css|js)$/i',
 
-            /*
+            /**
              * Regex to match against a filename/url to determine if it is a CSS asset.
              *
              * @var string
              */
             //'css_regex' => '/.\.css$/i',
 
-            /*
+            /**
              * Regex to match against a filename/url to determine if it is a JavaScript asset.
              *
              * @var string
              */
             //'js_regex' => '/.\.js$/i',
 
-            /*
+            /**
              * Regex to match against a filename/url to determine if it should not be minified by pipeline.
              *
              * @var string
              */
             //'no_minification_regex' => '/.[-.]min\.(css|js)$/i',
 
-            /*
+            /**
              * Absolute path to the public directory of your App (WEBROOT).
              * Required if you enable the pipeline.
              * No trailing slash!.
@@ -55,7 +55,7 @@ return[
              */
             //'public_dir' => (function_exists('public_path')) ? public_path() : '/var/www/localhost/htdocs',
 
-            /*
+            /**
              * Directory for local CSS assets.
              * Relative to your public directory ('public_dir').
              * No trailing slash!.
@@ -64,7 +64,7 @@ return[
              */
             //'css_dir' => 'css',
 
-            /*
+            /**
              * Directory for local JavaScript assets.
              * Relative to your public directory ('public_dir').
              * No trailing slash!.
@@ -73,7 +73,7 @@ return[
              */
             //'js_dir' => 'js',
 
-            /*
+            /**
              * Directory for local package assets.
              * Relative to your public directory ('public_dir').
              * No trailing slash!.
@@ -82,7 +82,7 @@ return[
              */
             //'packages_dir' => 'packages',
 
-            /*
+            /**
              * Enable assets pipeline (concatenation and minification).
              * Use a string that evaluates to `true` to provide the salt of the pipeline hash.
              * Use 'auto' to automatically calculated the salt from your assets last modification time.
@@ -91,7 +91,7 @@ return[
              */
             //'pipeline' => false,
 
-            /*
+            /**
              * Directory for storing pipelined assets.
              * Relative to your assets directories ('css_dir' and 'js_dir').
              * No trailing slash!.
@@ -100,7 +100,7 @@ return[
              */
             //'pipeline_dir' => 'min',
 
-            /*
+            /**
              * Enable pipelined assets compression with Gzip.
              * Use only if your webserver supports Gzip HTTP_ACCEPT_ENCODING.
              * Set to true to use the default compression level.
@@ -110,7 +110,7 @@ return[
              */
             //'pipeline_gzip' => false,
 
-            /*
+            /**
              * Closure used by the pipeline to fetch assets.
              *
              * Useful when file_get_contents() function is not available in your PHP
@@ -124,7 +124,7 @@ return[
              */
             //'fetch_command' => function ($asset) {return preprocess(file_get_contents($asset));},
 
-            /*
+            /**
              * Available collections.
              * Each collection is an array of assets.
              * Collections may also contain other collections.
@@ -161,7 +161,7 @@ return[
 
             ),*/
 
-            /*
+            /**
              * Preload assets.
              * Here you may set which assets (CSS files, JavaScript files or collections)
              * should be loaded by default even if you don't explicitly add them on run time.
@@ -180,19 +180,33 @@ return[
     | generaly vendors, node_modules, bower_components
     |
     */
-    'collections_dir' => 'collections',
+    'collections_dir'=>'collections',
     /*
     |--------------------------------------------------------------------------
     | Directories contening Package that needs to Scan
     |--------------------------------------------------------------------------
     | generaly vendors, node_modules, bower_components
+    | you can add options by set the path in key & the array of options in value
+    | or you can just pass the path in value for default options
     |
     */
-    'directories' => [
-        base_path('vendor'),
+    'directories'=>[
+        base_path('vendor') => [
+            'max_depth'=>3
+        ],
         base_path('node_modules'),
         base_path('bower_components'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Max depth in scanned directories
+    |--------------------------------------------------------------------------
+    | for performance reason you can limit the depth in scanned directories
+    | it can be override by directories options
+    |
+    */
+    'max_depth'=>3,
     /*
     |--------------------------------------------------------------------------
     | File prediction for assets
@@ -204,7 +218,7 @@ return[
     | UnSupported: file_prediction
     |
     */
-    'file_prediction' => false,
+    'file_prediction'=> false,
 
     /*
     |--------------------------------------------------------------------------
@@ -217,7 +231,7 @@ return[
     | Supported: "symlink", "copy"
     |
     */
-    'copy_mode' => 'copy',
+    'copy_mode'=> 'copy',
 
     /*
     |--------------------------------------------------------------------------
@@ -226,5 +240,5 @@ return[
     | Warning this config if set to true, drastically slow application performance
     |
     */
-    'generate_when_local' => false,
+    'generate_when_local'=>false,
 ];

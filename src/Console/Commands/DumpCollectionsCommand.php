@@ -6,14 +6,15 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Config;
 
-class GenerateCollectionsCommand extends Command implements SelfHandling
+class DumpCollectionsCommand extends Command implements SelfHandling
 {
+
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'asset:generate-collections';
+    protected $name = 'asset:dump-collections';
 
     /**
      * The console command description.
@@ -54,9 +55,10 @@ class GenerateCollectionsCommand extends Command implements SelfHandling
         $directories = $this->getDirectories();
         if (empty($directories)) {
             $this->comment('no directories to scan, abort');
-
             return;
         }
+
+
 
         //dd($directories);
         $scanner = $this->getScanner();
@@ -67,8 +69,7 @@ class GenerateCollectionsCommand extends Command implements SelfHandling
         $this->comment('done');
     }
 
-    protected function getDirectories()
-    {
+    protected function getDirectories(){
         return $this->app['config']->get('assets.directories', []);
     }
 
