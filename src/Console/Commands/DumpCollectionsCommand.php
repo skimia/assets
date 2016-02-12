@@ -8,7 +8,6 @@ use Config;
 
 class DumpCollectionsCommand extends Command implements SelfHandling
 {
-
     /**
      * The console command name.
      *
@@ -62,10 +61,9 @@ class DumpCollectionsCommand extends Command implements SelfHandling
         $directories = $this->getDirectories();
         if (empty($directories)) {
             $this->comment('no directories to scan, abort');
+
             return;
         }
-
-
 
         //dd($directories);
         $scanner = $this->getScanner();
@@ -86,7 +84,8 @@ class DumpCollectionsCommand extends Command implements SelfHandling
         $this->comment('done');
     }
 
-    protected function getDirectories(){
+    protected function getDirectories()
+    {
         return $this->app['config']->get('assets.directories', []);
     }
 
