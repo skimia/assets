@@ -266,6 +266,7 @@ class Scanner
         $seen = [];
         $element = [
             'name' => false,
+            'resolve_this'=>false,
             'require' => array_keys($list),
         ];
         $this->dep_resolve($list, $element, $resolved, $seen);
@@ -288,7 +289,7 @@ class Scanner
                 $this->dep_resolve($list,$list[$required],$resolved,$unresolved);
             }
         }
-        if ($node['alias']) {
+        if (!isset($node['resolve_this']) || $node['resolve_this'] === true) {
             $resolved[] = $node;
         }
         unset($unresolved[array_search($node, $unresolved)]);
