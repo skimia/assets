@@ -25,6 +25,15 @@ menu:
                 getting-started:
                     text: Getting started
                     relativeUrl: docs/getting-started.html
+                configuration:
+                    text: Configuration
+                    relativeUrl: docs/configuration.html
+                commands:
+                    text: Artisan Commands
+                    relativeUrl: docs/commands.html
+                assetfile:
+                    text: Asset File
+                    relativeUrl: docs/asset_file.html        
                 api:
                     text: API
                     relativeUrl: api

@@ -114,7 +114,7 @@ class Scanner
             foreach ($files as $file) {
                 $content = $this->filterFile(json_decode($file->getContents(), true));
                 $content['__dir'] = dirname($file->getRealpath());
-                $files_defs[$content['name']] = $content;
+                $files_defs[isset($content['alias']) ? $content['alias']:$content['name']] = $content;
             }
         }
 
@@ -280,15 +280,15 @@ class Scanner
         if(isset($node['require']))
         foreach ($node['require'] as $required) {
             if(!isset($list[$required]))
-                throw new \Exception('Unknown or not accessible dep: '.$required.' for '.$node['name']);
+                throw new \Exception('Unknown or not accessible dep: '.$required.' for '.$node['name'].( isset($node['alias']) ?'('.$node['alias'].')':''));
             if(!in_array($list[$required],$resolved)){
 
                 if(in_array($list[$required],$unresolved))
-                    throw new \Exception('Circular reference detected: '.$node['name'].' -> '.$list[$required]['name']);
+                    throw new \Exception('Circular reference detected: '.$node['name'].' -> '.$list[$required]['name'].( isset($list[$required]['alias']) ?'('.$list[$required]['alias'].')':''));
                 $this->dep_resolve($list,$list[$required],$resolved,$unresolved);
             }
         }
-        if ($node['name']) {
+        if ($node['alias']) {
             $resolved[] = $node;
         }
         unset($unresolved[array_search($node, $unresolved)]);
