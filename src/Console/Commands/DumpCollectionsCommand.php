@@ -73,12 +73,14 @@ class DumpCollectionsCommand extends Command implements SelfHandling
         $scanner->scan();
         $added = $scanner->getNewlyBuildedCollections();
         $removed = $scanner->getRemovedBuildedCollections();
-        if(count($added) > 0)
-            $this->comment('added collections : '. implode(', ',$added));
-        if(count($removed) > 0)
-            $this->comment('removed collections : '. implode(', ',$removed));
-        if((count($added)+count($removed)) > 0 && $this->option('silent') !== true){
-            $update = $this->ask('Update Assets groups with the new or removed collections ? y/n','y');
+        if (count($added) > 0) {
+            $this->comment('added collections : '.implode(', ', $added));
+        }
+        if (count($removed) > 0) {
+            $this->comment('removed collections : '.implode(', ', $removed));
+        }
+        if ((count($added) + count($removed)) > 0 && $this->option('silent') !== true) {
+            $update = $this->ask('Update Assets groups with the new or removed collections ? y/n', 'y');
             $this->comment('sorry in the new release ;)');
         }
         $this->comment('done');

@@ -103,18 +103,17 @@ class Scanner
 
             $finder = Finder::create()->files()->ignoreDotFiles(false)->in($path);
 
-
-            $max_depth = $this->app['config']->get('assets.max_depth',3);
-            if(isset($this->directories_options[$path]['max_depth']))
+            $max_depth = $this->app['config']->get('assets.max_depth', 3);
+            if (isset($this->directories_options[$path]['max_depth'])) {
                 $max_depth = $this->directories_options[$path]['max_depth'];
+            }
 
-            $files = $finder->depth('<= ' . $max_depth)->name('.assets.json');
-
+            $files = $finder->depth('<= '.$max_depth)->name('.assets.json');
 
             foreach ($files as $file) {
                 $content = $this->filterFile(json_decode($file->getContents(), true));
                 $content['__dir'] = dirname($file->getRealpath());
-                $files_defs[isset($content['alias']) ? $content['alias']:$content['name']] = $content;
+                $files_defs[isset($content['alias']) ? $content['alias'] : $content['name']] = $content;
             }
         }
 
@@ -151,7 +150,7 @@ class Scanner
 
         $this->saveBuildedCollections();
 
-        $output .='}'.PHP_EOL;
+        $output .= '}'.PHP_EOL;
 
         $output .= $this->makeGroups();
 
@@ -266,7 +265,7 @@ class Scanner
         $seen = [];
         $element = [
             'name' => false,
-            'resolve_this'=>false,
+            'resolve_this' => false,
             'require' => array_keys($list),
         ];
         $this->dep_resolve($list, $element, $resolved, $seen);
@@ -278,18 +277,20 @@ class Scanner
     {
         //echo $node['name']."<br/>";
         $unresolved[] = $node;
-        if(isset($node['require']))
-        foreach ($node['require'] as $required) {
-            if(!isset($list[$required]))
-                throw new \Exception('Unknown or not accessible dep: '.$required.' for '.$node['name'].( isset($node['alias']) ?'('.$node['alias'].')':''));
-            if(!in_array($list[$required],$resolved)){
-
-                if(in_array($list[$required],$unresolved))
-                    throw new \Exception('Circular reference detected: '.$node['name'].' -> '.$list[$required]['name'].( isset($list[$required]['alias']) ?'('.$list[$required]['alias'].')':''));
-                $this->dep_resolve($list,$list[$required],$resolved,$unresolved);
+        if (isset($node['require'])) {
+            foreach ($node['require'] as $required) {
+                if (! isset($list[$required])) {
+                    throw new \Exception('Unknown or not accessible dep: '.$required.' for '.$node['name'].(isset($node['alias']) ? '('.$node['alias'].')' : ''));
+                }
+                if (! in_array($list[$required], $resolved)) {
+                    if (in_array($list[$required], $unresolved)) {
+                        throw new \Exception('Circular reference detected: '.$node['name'].' -> '.$list[$required]['name'].(isset($list[$required]['alias']) ? '('.$list[$required]['alias'].')' : ''));
+                    }
+                    $this->dep_resolve($list, $list[$required], $resolved, $unresolved);
+                }
             }
         }
-        if (!isset($node['resolve_this']) || $node['resolve_this'] === true) {
+        if (! isset($node['resolve_this']) || $node['resolve_this'] === true) {
             $resolved[] = $node;
         }
         unset($unresolved[array_search($node, $unresolved)]);
@@ -297,24 +298,26 @@ class Scanner
 
     protected function buildCollection($name, $files)
     {
-
         $this->builded_collections[] = $name;
+
         return sprintf('	Assets::group($container)->registerCollection(\'%s\', %s);'.PHP_EOL,
             $name,
             var_export($files, true));
     }
 
-    protected function saveBuildedCollections(){
-        $this->last_builded_collections = Cache::get('skimia.assets.collections.builded',[]);
-        Cache::forever('skimia.assets.collections.builded',$this->builded_collections);
+    protected function saveBuildedCollections()
+    {
+        $this->last_builded_collections = Cache::get('skimia.assets.collections.builded', []);
+        Cache::forever('skimia.assets.collections.builded', $this->builded_collections);
     }
 
-    public function getNewlyBuildedCollections(){
-        return array_diff($this->builded_collections,$this->last_builded_collections);
+    public function getNewlyBuildedCollections()
+    {
+        return array_diff($this->builded_collections, $this->last_builded_collections);
     }
 
-    public function getRemovedBuildedCollections(){
-        return array_diff($this->last_builded_collections,$this->builded_collections);
+    public function getRemovedBuildedCollections()
+    {
+        return array_diff($this->last_builded_collections, $this->builded_collections);
     }
 }
-
