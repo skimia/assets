@@ -22,7 +22,10 @@
 		<whitelist>
 			<directory suffix=".php">./src/</directory>
 			<exclude>
-				<file>./src/ServiceProvider.php</file>
+				<file>./src/AssetsServiceProvider.php</file>
+                <file>./src/Providers/StolzAssetsServiceProvider.php</file>
+                <file>./src/Events/BeforeMergeCollectionFiles.php</file>
+                <file>./src/config.php</file>
 			</exclude>
 		</whitelist>
 	</filter>
