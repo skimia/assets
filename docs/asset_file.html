@@ -76,7 +76,113 @@
 
                 
                 <section class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
-                    
+                    <h1 id="assets-collections-file">Assets Collections File</h1>
+<p>this file manage the list of contained assets &amp; the order for inclusion</p>
+<h2 id="fields">fields</h2>
+<p>all field keys must be in lowercase, fields marked by a star are required</p>
+<h3 id="name">Name*</h3>
+<p>this is the readable name of this assets collection file
+(if the alias field is not provided the name field is used but is not recomanded)</p>
+<h3 id="alias">Alias*</h3>
+<p>this is the system name of this assets collection file
+is used for override</p>
+<h3 id="description">Description</h3>
+<p>provide the description of this assets collection file</p>
+<h3 id="require">Require</h3>
+<p>for override feature this field ensure this collection is set after the required in mergin stack
+is an array with values are the alias of other <code>.asset;json</code> files</p>
+<h3 id="collections">Collections*</h3>
+<p>is similar to <code>Stolz\Assets</code> collections but all files can have an alias for easly overrides, is not required but highly recomanded</p>
+<p>contain the list of collections in key the name and in value the array listing js/css/other_collections of the collection</p>
+<h4 id="alias-asset">Alias asset</h4>
+<p>for alias a file you prefix the path of the file by the alias with a <code>@</code> for separate both</p>
+<p><code>"main@node_modules/angular/angular.js"</code> file <code>angular.js</code> with prefix <code>main</code></p>
+<h4 id="example-collection">example collection</h4>
+<p>this example define a collection named <code>angularjs</code> and before the inclusion of aliased <code>main</code> file (<code>node_modules/angular/angular.js</code>) that require the <code>jquery</code> collection</p>
+<pre><code class="language-json">{
+    "angularjs": [
+      "jquery",
+      "main@node_modules/angular/angular.js"
+    ],
+}</code></pre>
+<h2 id="example-file">example file</h2>
+<pre><code class="language-json">{
+  "name": "Api Fusion JS Client",
+  "alias": "fusion-client",
+  "description":"The javascript Client to connect to the fusion api",
+  "collections": {
+    "jquery": [
+      "main@vendors/jquery.js"
+    ],
+    "angularjs": [
+      "jquery",
+      "main@node_modules/angular/angular.js"
+    ],
+    "js-data": [
+      "main@node_modules/js-data/dist/js-data.js"
+    ],
+    "js-data-angular": [
+      "js-data",
+      "main@node_modules/js-data-angular/dist/js-data-angular.js"
+    ],
+    "angular-local-storage": [
+      "main@vendors/angular-local-storage.js"
+    ],
+    "fusion-client": [
+      "angularjs",
+      "js-data-angular",
+      "angular-local-storage",
+      "main_css@dist/css/apifusion.css",
+      "main_js@dist/js/fusion.core.js",
+      "main_templates@dist/js/fusion.core.templates.js"
+    ]
+  }
+
+}</code></pre>
+<h2 id="override-other-assets-collection-file">Override other assets collection file</h2>
+<p>First you must define the <code>require</code> field for example if you wants override the exemple file above</p>
+<pre><code class="language-json">{
+    "require" : [ "fusion-client" ]
+}</code></pre>
+<p>all ovveride are done by redefine the collection in the &quot;sub&quot; assets collection file</p>
+<h3 id="override-entire-collection-replace">Override entire collection (replace)</h3>
+<p>if you want to totally redefine de files(js/css or collections)
+for this you add a new &quot;file&quot; with the <code>@overwrite</code> value for example:</p>
+<pre><code class="language-json">{
+    "angularjs": [
+      "@overwrite",
+      "jquerydep@vendor/jquery2.js",
+      "angularjs@vendor/angular.js"
+    ],
+}</code></pre>
+<p>this replace the all collection, before have one collection and one file, now we have 2 files with differents alias</p>
+<h3 id="override-one-file-replace">Override one file (replace)</h3>
+<p>if you want to change one file (js/css)
+simply by set a file with the same alias for example :</p>
+<pre><code class="language-json">{
+    "angularjs": [
+      "main@vendor/angular2.js"
+    ],
+}</code></pre>
+<p>this replace the base main angularjs file with the new one</p>
+<h3 id="remove-one-file">Remove one file</h3>
+<p>if you want to remove one file (js/css)
+simply by set a value of <code>removed</code> with the same alias for example :</p>
+<pre><code class="language-json">{
+    "fusion-client": [
+      "main_css@removed"
+    ],
+}</code></pre>
+<p>this remove the main css file from this collection</p>
+<h3 id="add-one-file">Add one file</h3>
+<p>if you want to add one file (js/css)
+simply by set an alias not defined in the parent collection</p>
+<pre><code class="language-json">{
+    "fusion-client": [
+      "dark_css@css/dark_client.css"
+    ],
+}</code></pre>
+<p>this add a new file to the collection</p>
                 </section>
 
             </div>

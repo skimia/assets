@@ -76,7 +76,19 @@
 
                 
                 <section class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
-                    
+                    <h1 id="artisan-commands">Artisan commands</h1>
+<h2 id="regenerate-amp-copy-collections-dump">Regenerate &amp; copy collections (Dump)</h2>
+<pre><code class="language-json">php artisan asset:dump-collections</code></pre>
+<p>first this command regenerate all the collections, réxecute files merging, and copy the right files in the public collections dir</p>
+<blockquote>
+<p>this command must run on all add/update/delete <code>.assets.json</code> file &amp; if the <code>assets.copy_mode</code> is set to <code>copy</code> on all (js/css) modification
+second if a collection is added this command ask you if you wants to add this new collection for all defined groups in the config file
+thirdy if a collection is removed this command remove the collection if is required by any group</p>
+</blockquote>
+<h3 id="options">Options</h3>
+<ul>
+<li>--silent(-s) : you can use this option if you dont want to auto manage collections, this option dont check new or removed collection. </li>
+</ul>
                 </section>
 
             </div>

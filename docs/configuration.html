@@ -76,7 +76,70 @@
 
                 
                 <section class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
-                    
+                    <h1 id="configuration">Configuration</h1>
+<div class="alert alert-info">
+  The <strong>Stolz/Assets</strong> configuration is under the groups key in this config file 
+</div>
+<h2><code>assets.collections_dir</code></h2>
+<blockquote>
+  <p>Directory contening copied assets in the public directory</p>
+  <p>directory : project_root/public/{assets.collections_dir}/{asset_file_alias}/</p>
+  <small>default set to <cite title="Source Title">collections</cite></small>
+</blockquote>
+<h2><code>assets.directories</code></h2>
+<blockquote>
+  <p>List of directories contening packages with .assets.json files</p>
+  <p>you can set options by directory, see bellow</p>
+  <small>default set to</small>
+  <small><cite title="Source Title">project_root/vendor</cite></small>
+  <small><cite title="Source Title">project_root/node_modules</cite></small>
+  <small><cite title="Source Title">project_root/bower_components</cite></small>
+</blockquote>
+<pre><code class="language-php"> return [
+    'directories'=&gt;[
+        base_path('vendor') =&gt; [
+            'max_depth'=&gt;3
+        ],
+        base_path('node_modules'),
+        base_path('bower_components'),
+    ],
+ ];</code></pre>
+<blockquote>
+<p>you can set the directory path in key for provide options in the value array or setting simply the path in value with no options</p>
+</blockquote>
+<h3><code>assets.directories.{options}</code></h3>
+<h4><code>max_depth</code></h4>
+<blockquote>
+  <p>for performance reason you can limit the depth in scanned directories</p>
+  <small>default is set by the `assets.max_depth` options &amp; her default value is <cite title="Source Title">3</cite></small>
+</blockquote>
+<h2><code>assets.max_depth</code></h2>
+<blockquote>
+  <p>Max depth in scanned directories</p>
+  <p>for performance reason you can limit the depth in scanned directories, it can be override by directories options</p>
+  <small>default set to <cite title="Source Title">3</cite></small>
+  <small>with 3, the max is  <cite title="Source Title">{directory_path}<strong>/first_sub</strong>:{vendor}<strong>/second_sub</strong>:{package}<strong>/third_sub</strong>:{assets_dir}/<strong>.assets.json</strong></cite></small>
+</blockquote>
+<h2><code>assets.file_prediction</code></h2>
+<blockquote>
+  <p>this option is unused for now &amp; it must is set to false, if not false the package throw an error</p>
+</blockquote>
+<h2><code>assets.copy_mode</code></h2>
+<blockquote>
+  <p> This option controls the copy mode of packages assets for make it accesible from public dir.</p>
+  <p>2 options (in lowercase)</p>
+  <ul><li>
+<strong>copy</strong> : simply copy the selected directories by the asset file in the public dir, if you modify one of the inclued files you must regenerate with command `php artisan asset:dump-collections`</li>
+    <li>
+<strong>symlink</strong> : symlink the dirs for avoid to run the command for all modification but only if the assets file is modified</li>
+  </ul><small>default set to <cite title="Source Title">copy</cite></small>
+</blockquote>
+<h2><code>assets.generate_when_local</code></h2>
+<blockquote>
+  <p>Autoregenerate &amp; Copy assets collections for all request on local env</p>
+  <p>Warning this config if set to true, drastically slow application performance</p>
+  <small>default set to <cite title="Source Title">false</cite></small>
+</blockquote>
                 </section>
 
             </div>
