@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Skimia Assets</title>
+
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/highlight.tomorrow-night.css">
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-default navbar-fixed-top">
+
+            <a class="navbar-brand" href="http://skimia.github.io/assets/">
+                Skimia Assets
+                <small class="hidden-xs hidden-sm">
+                    The awesome new Package
+                </small>
+            </a>
+
+                            <a href="https://github.com/skimia/assets">
+                    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+                </a>
+            
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                                                    <p class="text-muted">
+                                Introduction
+                            </p>
+
+                            <ul class="nav nav-pills nav-stacked">
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/getting-started.html">
+                                            Getting started
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/configuration.html">
+                                            Configuration
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/commands.html">
+                                            Artisan Commands
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/asset_file.html">
+                                            Asset File
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/api">
+                                            API
+                                        </a>
+                                    </li>
+                                                            </ul>
+                                                    <p class="text-muted">
+                                Other topics
+                            </p>
+
+                            <ul class="nav nav-pills nav-stacked">
+                                                            </ul>
+                        
+                    </nav>
+
+                
+                <section class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
+                    <h1 id="skimia-assets">Skimia Assets</h1>
+<p><a href="http://travis-ci.org/skimia/assets"><img src="https://img.shields.io/travis/skimia/assets/master.svg?style=flat-square" alt="Build Status" /></a>
+<a href="https://codecov.io/github/skimia/assets?branch=master"><img src="https://img.shields.io/codecov/c/github/skimia/assets.svg?branch=master&amp;style=flat-square" alt="Coverage Status" /></a>
+<a href="https://packagist.org/packages/skimia/assets"><img src="https://img.shields.io/packagist/v/skimia/assets.svg?style=flat-square" alt="Latest Stable Version" /></a>
+<a href="https://packagist.org/packages/skimia/assets"><img src="https://img.shields.io/packagist/dt/skimia/assets.svg?style=flat-square" alt="Total Downloads" /></a>
+<a href="https://packagist.org/packages/skimia/assets"><img src="https://img.shields.io/packagist/l/skimia/assets.svg?style=flat-square" alt="License" /></a>
+<a href="https://styleci.io/repos/51383045"><img src="https://styleci.io/repos/51383045/shield" alt="StyleCI" /></a></p>
+<p>This package is based on <a href="https://github.com/Stolz/Assets">Stolz/Assets</a> for managing assets but in thos package all asset must be configured in one configuration file.</p>
+<p>exemple for add a new lib in my project</p>
+<ul>
+<li>composer or npm require package</li>
+<li>
+<ul>
+<li>composer install the dep</li>
+</ul>
+</li>
+<li>go to assets configuration file &amp; add a new collection with the correct files</li>
+<li>
+<ul>
+<li>find the documentation of the lib &amp; extract all needed files</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>create a new collection based on this</li>
+</ul>
+</li>
+<li>go to your view or the global config of groups for add the newly defined collection</li>
+</ul>
+<p>with skimia/assets (inspired by meteor)</p>
+<ul>
+<li>composer or npm require package</li>
+<li>
+<ul>
+<li>composer install the dep</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>composer call the cmd for regenerate packages</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>if a newly defined collection is found the cmd prompt group by group if you wants to add this.</li>
+</ul>
+</li>
+<li>done</li>
+<li>alternativelly it &quot;merge&quot; the assets if you add a &quot;themed&quot; asset.</li>
+</ul>
+<p>it do this magic with one file in the root of the package (you can add more if you place it in multiples dirs) with all options.</p>
+<p>this file must be written by the package author but a &quot;replacement&quot; api is on the launch, it provides (if not present in the package directory) the right .asset.json file according to the repository url( override for all deps manager) or the deps manager key.</p>
+<h2 id="documentation">Documentation</h2>
+<p>Please refer to our <a href="http://skimia.github.io/assets/">online documentation</a> for more information.</p>
+<h2 id="license">License</h2>
+<p>This package is licensed under the <a href="LICENSE">GNU GENERAL PUBLIC LICENSE</a>.</p>
+                </section>
+
+            </div>
+        </main>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="http://yandex.st/highlightjs/7.5/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                $("section>h1").wrap('<div class="page-header" />');
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>

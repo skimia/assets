@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Getting started</title>
+
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/highlight.tomorrow-night.css">
+        <link rel="stylesheet" href="http://skimia.github.io/assets/css/main.css">
+    </head>
+    <body>
+
+        <header class="navbar navbar-default navbar-fixed-top">
+
+            <a class="navbar-brand" href="http://skimia.github.io/assets/">
+                Getting started
+                <small class="hidden-xs hidden-sm">
+                    The awesome new Package
+                </small>
+            </a>
+
+                            <a href="https://github.com/skimia/assets">
+                    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+                </a>
+            
+        </header>
+
+        <main class="container-fluid">
+            <div class="row">
+
+                
+                    <nav id="sidebar" class="col-sm-3 col-lg-2" role="navigation">
+
+                                                    <p class="text-muted">
+                                Introduction
+                            </p>
+
+                            <ul class="nav nav-pills nav-stacked">
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/getting-started.html">
+                                            Getting started
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/configuration.html">
+                                            Configuration
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/commands.html">
+                                            Artisan Commands
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/docs/asset_file.html">
+                                            Asset File
+                                        </a>
+                                    </li>
+                                                                    <li class="">
+                                        <a href="http://skimia.github.io/assets/api">
+                                            API
+                                        </a>
+                                    </li>
+                                                            </ul>
+                                                    <p class="text-muted">
+                                Other topics
+                            </p>
+
+                            <ul class="nav nav-pills nav-stacked">
+                                                            </ul>
+                        
+                    </nav>
+
+                
+                <section class="col-sm-offset-3 col-lg-offset-2 col-sm-9 col-lg-10">
+                    <h1 id="getting-started-with-skimiaassets">Getting started with Skimia/Assets</h1>
+<p>Welcome! This guide will help you get started with using Skimia/Assets in your project.</p>
+<h2 id="installation">Installation</h2>
+<p>Install Skimia\Assets with <a href="http://getcomposer.org/doc/00-intro.html">Composer</a>:</p>
+<pre><code class="language-json">composer require skimia/assets</code></pre>
+<p>Open <code>config/app.php</code> and register the required service provider above your application providers.</p>
+<pre><code class="language-php">'providers' =&gt; [
+    Skimia\Assets\AssetsServiceProvider::class
+]</code></pre>
+<h3 id="automatic-assets-collection-gnration">Automatic assets collection génération</h3>
+<p>if you wanth to regenerate automatically the collections if you install a package by composer/npm or bower you can add the artisan command <code>asset:dump-collections</code> to after install / update for all deps manager.</p>
+<h4 id="for-composer">for Composer</h4>
+<pre><code class="language-json">{
+    "scripts": {
+        "post-install-cmd":[
+            "php artisan asset:dump-collections --silent"
+        ],
+        "post-update-cmd": [
+            "php artisan asset:dump-collections"
+        ],
+    }
+}</code></pre>
+<blockquote>
+<p>checks the <code>--silent</code> option for dont prompt for auto add the newly added collections to default groups (multitenant feature of stolz), for more information go to <a href="commands.html">commands doc chapiter</a></p>
+</blockquote>
+<h2 id="configuration">Configuration</h2>
+<p>Skimia/Assets uses <a href="https://github.com/Stolz/Assets">Stolz/Api</a>, but just for manager class, you must not configure the stolz package if you don't want conflict beetween two packages.</p>
+<p><code>Stolz\Assets</code> is preinstalled &amp; preconfigured by the skimia package </p>
+<blockquote>
+<p>skimia/assets &amp; stolz/assets uses the same configuration file</p>
+</blockquote>
+<pre><code>php artisan vendor:publish --provider="Skimia\Assets\AssetsServiceProvider"</code></pre>
+<h5 id="continue-to">continue to <a href="configuration.html">Configuration chapiter</a></h5>
+                </section>
+
+            </div>
+        </main>
+
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="http://yandex.st/highlightjs/7.5/highlight.min.js"></script>
+
+        <script>
+            $(function() {
+                $("section>h1").wrap('<div class="page-header" />');
+                // Syntax highlighting
+                hljs.initHighlightingOnLoad();
+            });
+        </script>
+
+    </body>
+</html>
