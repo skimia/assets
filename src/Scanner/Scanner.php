@@ -305,17 +305,24 @@ class Scanner
             var_export($files, true));
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function saveBuildedCollections()
     {
         $this->last_builded_collections = Cache::get('skimia.assets.collections.builded', []);
         Cache::forever('skimia.assets.collections.builded', $this->builded_collections);
     }
-
+    /**
+     * @codeCoverageIgnore
+     */
     public function getNewlyBuildedCollections()
     {
         return array_diff($this->builded_collections, $this->last_builded_collections);
     }
-
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRemovedBuildedCollections()
     {
         return array_diff($this->last_builded_collections, $this->builded_collections);
