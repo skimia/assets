@@ -25,6 +25,7 @@
 				<file>./src/AssetsServiceProvider.php</file>
                 <file>./src/Providers/StolzAssetsServiceProvider.php</file>
                 <file>./src/Events/BeforeMergeCollectionFiles.php</file>
+                <file>./src/Scanner/ScannerServiceProvider.php</file>
                 <file>./src/config.php</file>
 			</exclude>
 		</whitelist>
