@@ -6,6 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/skimia/assets.svg?style=flat-square)](https://packagist.org/packages/skimia/assets)
 [![License](https://img.shields.io/packagist/l/skimia/assets.svg?style=flat-square)](https://packagist.org/packages/skimia/assets)
 [![StyleCI](https://styleci.io/repos/51383045/shield)](https://styleci.io/repos/51383045)
+[![Gitter](https://img.shields.io/gitter/room/skimia/StumpCMF.svg?style=flat-square)](https://gitter.im/skimia/StumpCMF?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
 This package is based on [Stolz/Assets](https://github.com/Stolz/Assets) for managing assets but in thos package all asset must be configured in one configuration file.
 
