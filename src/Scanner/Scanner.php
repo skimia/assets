@@ -313,6 +313,7 @@ class Scanner
         $this->last_builded_collections = Cache::get('skimia.assets.collections.builded', []);
         Cache::forever('skimia.assets.collections.builded', $this->builded_collections);
     }
+
     /**
      * @codeCoverageIgnore
      */
@@ -320,6 +321,7 @@ class Scanner
     {
         return array_diff($this->builded_collections, $this->last_builded_collections);
     }
+
     /**
      * @codeCoverageIgnore
      */
