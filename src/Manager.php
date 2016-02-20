@@ -58,12 +58,7 @@ class Manager extends ManagerBase
             return $this->collections_dir.'/'.$collection[0].'/'.ltrim($dir, '/').'/'.$collection[1];
         }
 
-        $package = $this->assetIsFromPackage($asset);
-        if ($package === false) {
-            return $dir.'/'.$asset;
-        }
-
-        return $this->packages_dir.'/'.$package[0].'/'.$package[1].'/'.ltrim($dir, '/').'/'.$package[2];
+        return parent::buildLocalLink($asset, $dir);
     }
 
     public function getCollections(){
