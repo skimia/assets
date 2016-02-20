@@ -61,7 +61,8 @@ class Manager extends ManagerBase
         return parent::buildLocalLink($asset, $dir);
     }
 
-    public function getCollections(){
+    public function getCollections()
+    {
         return $this->collections;
     }
 }

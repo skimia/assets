@@ -3,19 +3,19 @@
 
 class ManagerAdditionsTest extends TestCase
 {
-    public function testManager(){
-
+    public function testManager()
+    {
         $manager = new \Skimia\Assets\Manager([]);
-        $this->assertNotFalse($this->invokeMethod($manager,'assetIsFromCollection',['js-stack#blabla.js']));
-        $this->assertFalse($this->invokeMethod($manager,'assetIsFromCollection',['jquery']));
+        $this->assertNotFalse($this->invokeMethod($manager, 'assetIsFromCollection', ['js-stack#blabla.js']));
+        $this->assertFalse($this->invokeMethod($manager, 'assetIsFromCollection', ['jquery']));
     }
 
-    public function testLinks(){
-
+    public function testLinks()
+    {
         $manager = new \Skimia\Assets\Manager([]);
-        $this->assertEquals('collections/js-stack/js/blabla.js',$this->invokeMethod($manager,'buildLocalLink',['js-stack#blabla.js','js']));
+        $this->assertEquals('collections/js-stack/js/blabla.js', $this->invokeMethod($manager, 'buildLocalLink', ['js-stack#blabla.js', 'js']));
         //fallback to classic implementations
-        $this->assertEquals('js/blabla.js',$this->invokeMethod($manager,'buildLocalLink',['blabla.js','js']));
+        $this->assertEquals('js/blabla.js', $this->invokeMethod($manager, 'buildLocalLink', ['blabla.js', 'js']));
     }
 
     /**
