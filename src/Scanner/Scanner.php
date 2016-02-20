@@ -98,7 +98,7 @@ class Scanner
         $files_defs = [];
         foreach ($this->directories as $path) {
             if (! \File::exists($path)) {
-                continue;
+                continue; // @codeCoverageIgnore
             }
 
             $finder = Finder::create()->files()->ignoreDotFiles(false)->in($path);

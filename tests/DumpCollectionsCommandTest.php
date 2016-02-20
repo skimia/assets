@@ -13,7 +13,9 @@ class DumpCollectionsCommandTest extends TestCase
 
     protected function getDirectories(){
         return [
-            __DIR__.'/scan'
+            __DIR__.'/scan'=>[
+                'max_depth'=>3
+            ]
         ];
     }
 
@@ -24,6 +26,8 @@ class DumpCollectionsCommandTest extends TestCase
         $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]',[app()])->shouldAllowMockingProtectedMethods();
 
         $scannerMock->shouldReceive('getScannedPath')->atLeast()->times(1)->andReturn($this->getGeneratedFilePath());
+
+        $this->assertFalse($scannerMock->loadScanned());
 
         $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
 
