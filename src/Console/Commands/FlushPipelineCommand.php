@@ -10,6 +10,8 @@ class FlushPipelineCommand extends BaseCommand
      * Get the pipeline directories of the groups.
      *
      * @return array
+     *
+     * @codeCoverageIgnore
      */
     protected function getPipelineDirectories()
     {

@@ -76,7 +76,7 @@ class DumpCollectionsCommandTest extends TestCase
         Cache::forever('skimia.assets.collections.builded', ['angularjs','jquery']);
         //var_dump(Cache::get('skimia.assets.collections.builded', []));
         $this->invokeCommandWithPrompt($commandMock);
-        
+
 
 
         $this->assertTrue($this->getCommandOutput()->contains('removed collections'));
