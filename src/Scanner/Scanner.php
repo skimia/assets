@@ -135,7 +135,7 @@ class Scanner
 
     public function getDefinitions()
     {
-        $output = 'function makeCollections($container){'.PHP_EOL;
+        $output = '$makeCollections = function($container){'.PHP_EOL;
 
         $files = $this->getOrderedFileDefinitions();
 
@@ -150,7 +150,7 @@ class Scanner
 
         $this->saveBuildedCollections();
 
-        $output .= '}'.PHP_EOL;
+        $output .= '};'.PHP_EOL;
 
         $output .= $this->makeGroups();
 
@@ -180,7 +180,7 @@ class Scanner
         $groups = $this->getAssetsGroups();
 
         foreach ($groups as $groupName) {
-            $output .= 'makeCollections(\''.$groupName.'\');'.PHP_EOL;
+            $output .= '$makeCollections(\''.$groupName.'\');'.PHP_EOL;
         }
 
         return $output;
