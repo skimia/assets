@@ -3,27 +3,27 @@
 
 class DumpCollectionsCommandTest extends TestCase
 {
-
     use \Skimia\Foundation\Testing\Traits\CommandTrait;
 
-
-    protected function getGeneratedFilePath(){
+    protected function getGeneratedFilePath()
+    {
         return app()['path.storage'].'/framework/assets.generation.scanned--test.php';
     }
 
-    protected function getDirectories(){
+    protected function getDirectories()
+    {
         return [
-            __DIR__.'/scan'=>[
-                'max_depth'=>3
-            ]
+            __DIR__.'/scan' => [
+                'max_depth' => 3,
+            ],
         ];
     }
 
-    public function testCommand(){
-
+    public function testCommand()
+    {
         app()->register(\Skimia\Assets\AssetsServiceProvider::class);
 
-        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]',[app()])->shouldAllowMockingProtectedMethods();
+        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]', [app()])->shouldAllowMockingProtectedMethods();
 
         $scannerMock->shouldReceive('getScannedPath')->atLeast()->times(1)->andReturn($this->getGeneratedFilePath());
 
@@ -45,17 +45,13 @@ class DumpCollectionsCommandTest extends TestCase
 
         require $this->getGeneratedFilePath();
 
-        $this->assertArrayHasKey('js-stack',Assets::group('default')->getCollections());
-
-
+        $this->assertArrayHasKey('js-stack', Assets::group('default')->getCollections());
 
         File::delete($this->getGeneratedFilePath());
-
-
-
     }
 
-    public function testEmptyCommand(){
+    public function testEmptyCommand()
+    {
         $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
 
         $commandMock->shouldReceive('getDirectories')->atLeast()->times(1)->andReturn([]);
@@ -66,9 +62,9 @@ class DumpCollectionsCommandTest extends TestCase
         $this->assertTrue($this->getCommandOutput()->contains('no directories'));
     }
 
-    public function testRemoveCommand(){
-
-        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]',[app()])->shouldAllowMockingProtectedMethods();
+    public function testRemoveCommand()
+    {
+        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]', [app()])->shouldAllowMockingProtectedMethods();
 
         $scannerMock->shouldReceive('getScannedPath')->atLeast()->times(1)->andReturn($this->getGeneratedFilePath());
 
@@ -77,11 +73,9 @@ class DumpCollectionsCommandTest extends TestCase
         $commandMock->shouldReceive('getScanner')->atLeast()->times(1)->andReturn($scannerMock);
         $commandMock->shouldReceive('getDirectories')->atLeast()->times(1)->andReturn([__DIR__.'/emptyscans']);
 
-        Cache::forever('skimia.assets.collections.builded', ['angularjs','jquery']);
+        Cache::forever('skimia.assets.collections.builded', ['angularjs', 'jquery']);
         //var_dump(Cache::get('skimia.assets.collections.builded', []));
         $this->invokeCommandWithPrompt($commandMock);
-
-
 
         $this->assertTrue($this->getCommandOutput()->contains('removed collections'));
         //verifie si la question a été posée
@@ -91,7 +85,6 @@ class DumpCollectionsCommandTest extends TestCase
 
         File::delete($this->getGeneratedFilePath());
     }
-
 
     /**
      * Call protected/private method of a class.
@@ -110,5 +103,4 @@ class DumpCollectionsCommandTest extends TestCase
 
         return $method->invokeArgs($object, $parameters);
     }
-
 }
