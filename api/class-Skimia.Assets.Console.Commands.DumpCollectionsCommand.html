@@ -132,8 +132,13 @@ Illuminate\Console\Command
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>Skimia\Assets\Console\Commands\DumpCollectionsCommand</span></b>			
 			 implements 
-<span>Illuminate\Contracts\Bus\SelfHandling</span>
+<span>Illuminate\Contracts\Bus\SelfHandling</span>, 
 			
+<span>Skimia\Foundation\Testing\TestablePromptCommandInterface</span>
+			
+			 uses 
+					Skimia\Foundation\Testing\Traits\TestableCommandTrait (not available)
+
 			
 		</dd>
 	</dl>
@@ -151,7 +156,7 @@ Illuminate\Console\Command
 		<b>Namespace:</b> <a href="namespace-Skimia.html">Skimia</a>\<a href="namespace-Skimia.Assets.html">Assets</a>\<a href="namespace-Skimia.Assets.Console.html">Console</a>\<a href="namespace-Skimia.Assets.Console.Commands.html">Commands</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#9-101" title="Go to source code">Console/Commands/DumpCollectionsCommand.php</a>
+			<b>Located at</b> <a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#11-104" title="Go to source code">Console/Commands/DumpCollectionsCommand.php</a>
 		<br>
 	</div>
 
@@ -171,7 +176,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#32-51" title="Go to source code">__construct</a>( <span>Illuminate\Contracts\Config\Repository <var>$config</var>,…</span> )</code>
+			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#35-54" title="Go to source code">__construct</a>( <span>Illuminate\Contracts\Config\Repository <var>$config</var>,…</span> )</code>
 
 			<div class="description short">
 				<p>Class constructor.</p>
@@ -205,7 +210,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_fire">#</a>
-			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#53-87" title="Go to source code">fire</a>( )</code>
+			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#56-90" title="Go to source code">fire</a>( )</code>
 
 			<div class="description short">
 				<p>Execute the command.</p>
@@ -234,7 +239,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getDirectories">#</a>
-			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#89-92" title="Go to source code">getDirectories</a>( )</code>
+			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#92-95" title="Go to source code">getDirectories</a>( )</code>
 
 			<div class="description short">
 				
@@ -263,7 +268,7 @@ Illuminate\Console\Command
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getScanner">#</a>
-			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#94-100" title="Go to source code">getScanner</a>( )</code>
+			<code><a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#97-103" title="Go to source code">getScanner</a>( )</code>
 
 			<div class="description short">
 				
@@ -308,7 +313,7 @@ Illuminate\Console\Command
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#11-16" title="Go to source code"><var>$name</var></a>
+					<a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#14-19" title="Go to source code"><var>$name</var></a>
 
 				<div class="description short">
 					<p>The console command name.</p>
@@ -333,7 +338,7 @@ Illuminate\Console\Command
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#18-23" title="Go to source code"><var>$signature</var></a>
+					<a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#21-26" title="Go to source code"><var>$signature</var></a>
 
 				<div class="description short">
 					<p>The name and signature of the console command.</p>
@@ -358,7 +363,7 @@ Illuminate\Console\Command
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#25-30" title="Go to source code"><var>$description</var></a>
+					<a href="source-class-Skimia.Assets.Console.Commands.DumpCollectionsCommand.html#28-33" title="Go to source code"><var>$description</var></a>
 
 				<div class="description short">
 					<p>The console command description.</p>
