@@ -91,6 +91,9 @@ is used for override</p>
 <h3 id="require">Require</h3>
 <p>for override feature this field ensure this collection is set after the required in mergin stack
 is an array with values are the alias of other <code>.asset;json</code> files</p>
+<h3 id="copy">Copy*</h3>
+<p>you must define the folders that will be copied to the public folder
+is an array with values are folders relative to the asset file.</p>
 <h3 id="collections">Collections*</h3>
 <p>is similar to <code>Stolz\Assets</code> collections but all files can have an alias for easly overrides, is not required but highly recomanded</p>
 <p>contain the list of collections in key the name and in value the array listing js/css/other_collections of the collection</p>
@@ -136,7 +139,12 @@ is an array with values are the alias of other <code>.asset;json</code> files</p
       "main_js@dist/js/fusion.core.js",
       "main_templates@dist/js/fusion.core.templates.js"
     ]
-  }
+  },
+  "copy":[
+      "vendors",
+      "node_modules",
+      "dist",
+  ]
 
 }</code></pre>
 <h2 id="override-other-assets-collection-file">Override other assets collection file</h2>
@@ -146,7 +154,7 @@ is an array with values are the alias of other <code>.asset;json</code> files</p
 }</code></pre>
 <p>all ovveride are done by redefine the collection in the &quot;sub&quot; assets collection file</p>
 <h3 id="override-entire-collection-replace">Override entire collection (replace)</h3>
-<p>if you want to totally redefine de files(js/css or collections)
+<p>if you want to totally redefine all files(js/css or collections) of this collection
 for this you add a new &quot;file&quot; with the <code>@overwrite</code> value for example:</p>
 <pre><code class="language-json">{
     "angularjs": [
