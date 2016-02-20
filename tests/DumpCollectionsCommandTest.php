@@ -19,6 +19,7 @@ class DumpCollectionsCommandTest extends TestCase
 
     public function testCommand(){
 
+        app()->register(\Skimia\Assets\AssetsServiceProvider::class);
 
         $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]',[app()])->shouldAllowMockingProtectedMethods();
 
