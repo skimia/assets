@@ -89,6 +89,9 @@ class DumpCollectionsCommand extends Command implements SelfHandling,TestablePro
         $this->comment('done');
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     protected function getDirectories()
     {
         return $this->app['config']->get('assets.directories', []);
@@ -96,6 +99,7 @@ class DumpCollectionsCommand extends Command implements SelfHandling,TestablePro
 
     /**
      * @return Scanner
+     * @codeCoverageIgnore
      */
     protected function getScanner()
     {

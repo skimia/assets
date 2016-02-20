@@ -44,6 +44,47 @@ class DumpCollectionsCommandTest extends TestCase
         $this->assertArrayHasKey('js-stack',Assets::group('default')->getCollections());
 
 
+
+        File::delete($this->getGeneratedFilePath());
+
+
+
+    }
+
+    public function testEmptyCommand(){
+        $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
+
+        $commandMock->shouldReceive('getDirectories')->atLeast()->times(1)->andReturn([]);
+        $this->commandOutput = null;
+
+        $this->invokeCommandWithPrompt($commandMock);
+
+        $this->assertTrue($this->getCommandOutput()->contains('no directories'));
+    }
+
+    public function testRemoveCommand(){
+
+        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]',[app()])->shouldAllowMockingProtectedMethods();
+
+        $scannerMock->shouldReceive('getScannedPath')->atLeast()->times(1)->andReturn($this->getGeneratedFilePath());
+
+        $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
+
+        $commandMock->shouldReceive('getScanner')->atLeast()->times(1)->andReturn($scannerMock);
+        $commandMock->shouldReceive('getDirectories')->atLeast()->times(1)->andReturn([__DIR__.'/emptyscans']);
+
+        Cache::forever('skimia.assets.collections.builded', ['angularjs','jquery']);
+        //var_dump(Cache::get('skimia.assets.collections.builded', []));
+        $this->invokeCommandWithPrompt($commandMock);
+        
+
+
+        $this->assertTrue($this->getCommandOutput()->contains('removed collections'));
+        //verifie si la question a été posée
+        $this->assertTrue($this->getCommandOutput()->contains('<ask>Update Assets'));
+
+        $this->assertTrue(File::exists($this->getGeneratedFilePath()));
+
         File::delete($this->getGeneratedFilePath());
     }
 
