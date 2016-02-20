@@ -24,6 +24,11 @@ provide the description of this assets collection file
 for override feature this field ensure this collection is set after the required in mergin stack
 is an array with values are the alias of other `.asset;json` files
 
+### Copy*
+
+you must define the folders that will be copied to the public folder
+is an array with values are folders relative to the asset file.
+
 ### Collections*
 is similar to `Stolz\Assets` collections but all files can have an alias for easly overrides, is not required but highly recomanded
 
@@ -80,7 +85,12 @@ this example define a collection named `angularjs` and before the inclusion of a
       "main_js@dist/js/fusion.core.js",
       "main_templates@dist/js/fusion.core.templates.js"
     ]
-  }
+  },
+  "copy":[
+      "vendors",
+      "node_modules",
+      "dist",
+  ]
 
 }
 ```
@@ -100,7 +110,7 @@ all ovveride are done by redefine the collection in the "sub" assets collection 
 
 ### Override entire collection (replace)
 
-if you want to totally redefine de files(js/css or collections)
+if you want to totally redefine all files(js/css or collections) of this collection
 for this you add a new "file" with the `@overwrite` value for example:
 
 ```json
