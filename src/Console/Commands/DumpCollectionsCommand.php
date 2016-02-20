@@ -5,9 +5,12 @@ namespace Skimia\Assets\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Config;
+use Skimia\Foundation\Testing\TestablePromptCommandInterface;
+use Skimia\Foundation\Testing\Traits\TestableCommandTrait;
 
-class DumpCollectionsCommand extends Command implements SelfHandling
+class DumpCollectionsCommand extends Command implements SelfHandling,TestablePromptCommandInterface
 {
+    use TestableCommandTrait;
     /**
      * The console command name.
      *
