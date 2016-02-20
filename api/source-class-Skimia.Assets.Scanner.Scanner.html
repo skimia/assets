@@ -260,7 +260,7 @@
 </span><span id="135" class="l"><a href="#135">135 </a>
 </span><span id="136" class="l"><a href="#136">136 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getDefinitions()
 </span><span id="137" class="l"><a href="#137">137 </a>    {
-</span><span id="138" class="l"><a href="#138">138 </a>        <span class="php-var">$output</span> = <span class="php-quote">'function makeCollections($container){'</span>.PHP_EOL;
+</span><span id="138" class="l"><a href="#138">138 </a>        <span class="php-var">$output</span> = <span class="php-quote">'$makeCollections = function($container){'</span>.PHP_EOL;
 </span><span id="139" class="l"><a href="#139">139 </a>
 </span><span id="140" class="l"><a href="#140">140 </a>        <span class="php-var">$files</span> = <span class="php-var">$this</span>-&gt;getOrderedFileDefinitions();
 </span><span id="141" class="l"><a href="#141">141 </a>
@@ -275,7 +275,7 @@
 </span><span id="150" class="l"><a href="#150">150 </a>
 </span><span id="151" class="l"><a href="#151">151 </a>        <span class="php-var">$this</span>-&gt;saveBuildedCollections();
 </span><span id="152" class="l"><a href="#152">152 </a>
-</span><span id="153" class="l"><a href="#153">153 </a>        <span class="php-var">$output</span> .= <span class="php-quote">'}'</span>.PHP_EOL;
+</span><span id="153" class="l"><a href="#153">153 </a>        <span class="php-var">$output</span> .= <span class="php-quote">'};'</span>.PHP_EOL;
 </span><span id="154" class="l"><a href="#154">154 </a>
 </span><span id="155" class="l"><a href="#155">155 </a>        <span class="php-var">$output</span> .= <span class="php-var">$this</span>-&gt;makeGroups();
 </span><span id="156" class="l"><a href="#156">156 </a>
@@ -305,7 +305,7 @@
 </span><span id="180" class="l"><a href="#180">180 </a>        <span class="php-var">$groups</span> = <span class="php-var">$this</span>-&gt;getAssetsGroups();
 </span><span id="181" class="l"><a href="#181">181 </a>
 </span><span id="182" class="l"><a href="#182">182 </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$groups</span> <span class="php-keyword1">as</span> <span class="php-var">$groupName</span>) {
-</span><span id="183" class="l"><a href="#183">183 </a>            <span class="php-var">$output</span> .= <span class="php-quote">'makeCollections(\''</span>.<span class="php-var">$groupName</span>.<span class="php-quote">'\');'</span>.PHP_EOL;
+</span><span id="183" class="l"><a href="#183">183 </a>            <span class="php-var">$output</span> .= <span class="php-quote">'$makeCollections(\''</span>.<span class="php-var">$groupName</span>.<span class="php-quote">'\');'</span>.PHP_EOL;
 </span><span id="184" class="l"><a href="#184">184 </a>        }
 </span><span id="185" class="l"><a href="#185">185 </a>
 </span><span id="186" class="l"><a href="#186">186 </a>        <span class="php-keyword1">return</span> <span class="php-var">$output</span>;
