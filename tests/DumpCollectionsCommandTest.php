@@ -19,20 +19,35 @@ class DumpCollectionsCommandTest extends TestCase
         ];
     }
 
+    protected function getMockedScanner($path, $minuse = 1){
+
+        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]', [app()])->shouldAllowMockingProtectedMethods();
+
+        $scannerMock->shouldReceive('getScannedPath')->atLeast()->times($minuse)->andReturn($path);
+
+        return $scannerMock;
+    }
+
+    protected function getMockedCommand($scannerMock = null,$directories = [], $minuse = 1){
+
+        $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
+
+        if(isset($scannerMock))
+            $commandMock->shouldReceive('getScanner')->atLeast()->times($minuse)->andReturn($scannerMock);
+
+        $commandMock->shouldReceive('getDirectories')->atLeast()->times($minuse)->andReturn($directories);
+        return $commandMock;
+
+    }
     public function testCommand()
     {
         app()->register(\Skimia\Assets\AssetsServiceProvider::class);
 
-        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]', [app()])->shouldAllowMockingProtectedMethods();
-
-        $scannerMock->shouldReceive('getScannedPath')->atLeast()->times(1)->andReturn($this->getGeneratedFilePath());
+        $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
 
         $this->assertFalse($scannerMock->loadScanned());
 
-        $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
-
-        $commandMock->shouldReceive('getScanner')->atLeast()->times(1)->andReturn($scannerMock);
-        $commandMock->shouldReceive('getDirectories')->atLeast()->times(1)->andReturn($this->getDirectories());
+        $commandMock = $this->getMockedCommand($scannerMock,$this->getDirectories());
 
         //var_dump(Cache::get('skimia.assets.collections.builded', []));
         $this->invokeCommandWithPrompt($commandMock);
@@ -52,9 +67,7 @@ class DumpCollectionsCommandTest extends TestCase
 
     public function testEmptyCommand()
     {
-        $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
-
-        $commandMock->shouldReceive('getDirectories')->atLeast()->times(1)->andReturn([]);
+        $commandMock = $this->getMockedCommand(null,[]);
         $this->commandOutput = null;
 
         $this->invokeCommandWithPrompt($commandMock);
@@ -64,14 +77,10 @@ class DumpCollectionsCommandTest extends TestCase
 
     public function testRemoveCommand()
     {
-        $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]', [app()])->shouldAllowMockingProtectedMethods();
+        $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
 
-        $scannerMock->shouldReceive('getScannedPath')->atLeast()->times(1)->andReturn($this->getGeneratedFilePath());
 
-        $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
-
-        $commandMock->shouldReceive('getScanner')->atLeast()->times(1)->andReturn($scannerMock);
-        $commandMock->shouldReceive('getDirectories')->atLeast()->times(1)->andReturn([__DIR__.'/emptyscans']);
+        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/emptyscans']);
 
         Cache::forever('skimia.assets.collections.builded', ['angularjs', 'jquery']);
         //var_dump(Cache::get('skimia.assets.collections.builded', []));
@@ -83,6 +92,66 @@ class DumpCollectionsCommandTest extends TestCase
 
         $this->assertTrue(File::exists($this->getGeneratedFilePath()));
 
+        File::delete($this->getGeneratedFilePath());
+    }
+
+
+    public function testUnknown()
+    {
+        $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
+
+
+        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/undefined']);
+
+
+        $this->setExpectedException('Exception');
+        $this->invokeCommandWithPrompt($commandMock);
+
+        File::delete($this->getGeneratedFilePath());
+    }
+
+    public function testRedundant()
+    {
+        $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
+
+
+        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/circular']);
+
+
+        $this->setExpectedException('Exception');
+        $this->invokeCommandWithPrompt($commandMock);
+
+        File::delete($this->getGeneratedFilePath());
+    }
+
+    public function testCopy()
+    {
+        $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
+
+
+        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/copy']);
+
+        app()['config']->set('assets.copy_mode', 'copy');
+
+        $this->invokeCommandWithPrompt($commandMock);
+
+        $path = public_path(app()['config']->get('assets.collections_dir', 'collections').'/js-stack-dark-glow--testing');
+
+        $this->assertTrue(File::exists($path.'/css'));
+
+        File::deleteDirectory($path);
+        File::delete($this->getGeneratedFilePath());
+
+
+        app()['config']->set('assets.copy_mode', 'symlink');
+
+        $this->invokeCommandWithPrompt($commandMock);
+
+        $path = public_path(app()['config']->get('assets.collections_dir', 'collections').'/js-stack-dark-glow--testing');
+
+        $this->assertTrue(is_link($path.'/css'));
+
+        File::deleteDirectory($path);
         File::delete($this->getGeneratedFilePath());
     }
 

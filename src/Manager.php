@@ -23,7 +23,7 @@ class Manager extends ManagerBase
         if (isset($config['collections_dir'])) {
             $this->collections_dir = $config['collections_dir'];
         } else {
-            return parent::config($config);
+            return parent::config($config); // @codeCoverageIgnore
         }
     }
 
