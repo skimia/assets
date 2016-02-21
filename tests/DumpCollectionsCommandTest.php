@@ -19,8 +19,8 @@ class DumpCollectionsCommandTest extends TestCase
         ];
     }
 
-    protected function getMockedScanner($path, $minuse = 1){
-
+    protected function getMockedScanner($path, $minuse = 1)
+    {
         $scannerMock = Mockery::mock(\Skimia\Assets\Scanner\Scanner::class.'[getScannedPath]', [app()])->shouldAllowMockingProtectedMethods();
 
         $scannerMock->shouldReceive('getScannedPath')->atLeast()->times($minuse)->andReturn($path);
@@ -28,17 +28,19 @@ class DumpCollectionsCommandTest extends TestCase
         return $scannerMock;
     }
 
-    protected function getMockedCommand($scannerMock = null,$directories = [], $minuse = 1){
-
+    protected function getMockedCommand($scannerMock = null, $directories = [], $minuse = 1)
+    {
         $commandMock = Mockery::mock(\Skimia\Assets\Console\Commands\DumpCollectionsCommand::class.'[getScanner,getDirectories]')->shouldAllowMockingProtectedMethods();
 
-        if(isset($scannerMock))
+        if (isset($scannerMock)) {
             $commandMock->shouldReceive('getScanner')->atLeast()->times($minuse)->andReturn($scannerMock);
+        }
 
         $commandMock->shouldReceive('getDirectories')->atLeast()->times($minuse)->andReturn($directories);
-        return $commandMock;
 
+        return $commandMock;
     }
+
     public function testCommand()
     {
         app()->register(\Skimia\Assets\AssetsServiceProvider::class);
@@ -47,7 +49,7 @@ class DumpCollectionsCommandTest extends TestCase
 
         $this->assertFalse($scannerMock->loadScanned());
 
-        $commandMock = $this->getMockedCommand($scannerMock,$this->getDirectories());
+        $commandMock = $this->getMockedCommand($scannerMock, $this->getDirectories());
 
         //var_dump(Cache::get('skimia.assets.collections.builded', []));
         $this->invokeCommandWithPrompt($commandMock);
@@ -67,7 +69,7 @@ class DumpCollectionsCommandTest extends TestCase
 
     public function testEmptyCommand()
     {
-        $commandMock = $this->getMockedCommand(null,[]);
+        $commandMock = $this->getMockedCommand(null, []);
         $this->commandOutput = null;
 
         $this->invokeCommandWithPrompt($commandMock);
@@ -79,8 +81,7 @@ class DumpCollectionsCommandTest extends TestCase
     {
         $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
 
-
-        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/emptyscans']);
+        $commandMock = $this->getMockedCommand($scannerMock, [__DIR__.'/emptyscans']);
 
         Cache::forever('skimia.assets.collections.builded', ['angularjs', 'jquery']);
         //var_dump(Cache::get('skimia.assets.collections.builded', []));
@@ -95,14 +96,11 @@ class DumpCollectionsCommandTest extends TestCase
         File::delete($this->getGeneratedFilePath());
     }
 
-
     public function testUnknown()
     {
         $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
 
-
-        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/undefined']);
-
+        $commandMock = $this->getMockedCommand($scannerMock, [__DIR__.'/undefined']);
 
         $this->setExpectedException('Exception');
         $this->invokeCommandWithPrompt($commandMock);
@@ -114,9 +112,7 @@ class DumpCollectionsCommandTest extends TestCase
     {
         $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
 
-
-        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/circular']);
-
+        $commandMock = $this->getMockedCommand($scannerMock, [__DIR__.'/circular']);
 
         $this->setExpectedException('Exception');
         $this->invokeCommandWithPrompt($commandMock);
@@ -128,8 +124,7 @@ class DumpCollectionsCommandTest extends TestCase
     {
         $scannerMock = $this->getMockedScanner($this->getGeneratedFilePath());
 
-
-        $commandMock = $this->getMockedCommand($scannerMock,[__DIR__.'/copy']);
+        $commandMock = $this->getMockedCommand($scannerMock, [__DIR__.'/copy']);
 
         app()['config']->set('assets.copy_mode', 'copy');
 
@@ -141,7 +136,6 @@ class DumpCollectionsCommandTest extends TestCase
 
         File::deleteDirectory($path);
         File::delete($this->getGeneratedFilePath());
-
 
         app()['config']->set('assets.copy_mode', 'symlink');
 

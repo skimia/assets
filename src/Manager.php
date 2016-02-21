@@ -25,7 +25,6 @@ class Manager extends ManagerBase
         } else {
             return parent::config($config); // @codeCoverageIgnore
         }
-        
     }
 
     /**
